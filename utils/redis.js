@@ -1,12 +1,11 @@
 import { createClient } from 'redis';
 
-
 class RedisClient {
   constructor() {
     this.client = createClient();
     this.isConnected = true;
-    this.client.on('error', err => {
-      console.log(err)
+    this.client.on('error', (err) => {
+      console.log(err);
       this.isConnected = false;
     });
     this.client.on('connect', () => this.isConnected = true);
@@ -28,13 +27,14 @@ class RedisClient {
       return await this.client.get(key);
     }
     catch (error) {
-      return `Getting value failed due to ${error}`;
+      console.error(`Error setting value for key "${key}":`, error);
+      return null;
     }
   }
 
   async set(key, value, duration) {
     try {
-      await this.client.set(key, value, { EX: duration});
+      await this.client.set(key, value, { EX: duration });
     }
     catch (error) {
       console.error(`Error setting value for key "${key}":`, error);
@@ -46,7 +46,7 @@ class RedisClient {
       await this.client.del(key);
     }
     catch (err) {
-      console.error(`Error deleting key "${key}":`, error);
+      console.error(`Error deleting key "${key}":`, err);
     }
   }
 }
