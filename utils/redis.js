@@ -9,8 +9,7 @@ class RedisClient {
       this.isConnected = false;
     });
     this.client.on('connect', () => {
-	    this.isConnected = true}
-    );
+        this.isConnected = true; });
     (async () => {
       try {
         await this.client.connect();
@@ -26,8 +25,7 @@ class RedisClient {
 
   async get(key) {
     try {
-      return await this.client.get(key);
-    }
+      return await this.client.get(key);}
     catch (error) {
       console.error(`Error setting value for key "${key}":`, error);
       return null;
@@ -36,8 +34,7 @@ class RedisClient {
 
   async set(key, value, duration) {
     try {
-      await this.client.set(key, value, { EX: duration });
-    }
+      await this.client.set(key, value, { EX: duration });}
     catch (error) {
       console.error(`Error setting value for key "${key}":`, error);
     }
@@ -45,8 +42,7 @@ class RedisClient {
 
   async del(key) {
     try {
-      await this.client.del(key);
-    }
+      await this.client.del(key);}
     catch (err) {
       console.error(`Error deleting key "${key}":`, err);
     }
