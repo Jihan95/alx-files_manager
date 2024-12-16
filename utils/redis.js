@@ -8,7 +8,9 @@ class RedisClient {
       console.log(err);
       this.isConnected = false;
     });
-    this.client.on('connect', () => this.isConnected = true);
+    this.client.on('connect', () => {
+	    this.isConnected = true}
+    );
     (async () => {
       try {
         await this.client.connect();
